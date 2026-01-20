@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
 @Table("TOUR_PACKAGE_TTS")
 public class TourPackage {
 
@@ -57,8 +58,6 @@ public class TourPackage {
 
     @Column("ACTIVE")
     private Boolean active;
-
-    public TourPackage() {}
 
     public TourPackage(Long id, String name, String description, String location, BigDecimal price, Integer durationDays, Integer availableSlots, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean active) {
         this.id = id;

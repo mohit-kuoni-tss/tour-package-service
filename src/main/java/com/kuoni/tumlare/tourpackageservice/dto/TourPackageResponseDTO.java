@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
 public class TourPackageResponseDTO {
 
     private Long id;
@@ -28,8 +29,6 @@ public class TourPackageResponseDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private Boolean active;
-
-    public TourPackageResponseDTO() {}
 
     public TourPackageResponseDTO(Long id, String name, String description, String location, BigDecimal price, Integer durationDays, Integer availableSlots, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean active) {
         this.id = id;

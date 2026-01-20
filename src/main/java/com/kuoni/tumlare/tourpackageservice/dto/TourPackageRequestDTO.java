@@ -1,15 +1,14 @@
 package com.kuoni.tumlare.tourpackageservice.dto;
 
-//import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.math.BigDecimal;
 
 /**
@@ -21,6 +20,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
 public class TourPackageRequestDTO {
 
     @NotBlank(message = "Tour name is mandatory")
@@ -42,8 +42,6 @@ public class TourPackageRequestDTO {
     @NotNull(message = "Available slots are mandatory")
     @Min(value = 0, message = "Available slots cannot be negative")
     private Integer availableSlots;
-
-    public TourPackageRequestDTO() {}
 
     public TourPackageRequestDTO(String name, String description, String location, BigDecimal price, Integer durationDays, Integer availableSlots) {
         this.name = name;
