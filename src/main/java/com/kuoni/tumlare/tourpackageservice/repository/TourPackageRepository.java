@@ -20,6 +20,6 @@ public interface TourPackageRepository extends ReactiveCrudRepository<TourPackag
      *
      * @return a Flux of active tour packages
      */
-    @Query("SELECT * FROM TOUR_PACKAGE_TTS WHERE ACTIVE = 1")
+    @Query("SELECT ID, NAME, DESCRIPTION, LOCATION, PRICE, DURATION_DAYS, AVAILABLE_SLOTS, ACTIVE, CREATED_AT, UPDATED_AT FROM TOUR_PACKAGE_TTS WHERE ACTIVE = 1")
     Flux<TourPackage> findAllActive();
 }

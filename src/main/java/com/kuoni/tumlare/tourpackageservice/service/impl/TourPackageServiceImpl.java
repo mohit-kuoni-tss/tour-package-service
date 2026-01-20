@@ -8,8 +8,6 @@ import com.kuoni.tumlare.tourpackageservice.mapper.TourPackageMapper;
 import com.kuoni.tumlare.tourpackageservice.repository.TourPackageRepository;
 import com.kuoni.tumlare.tourpackageservice.service.TourPackageService;
 import com.kuoni.tumlare.tourpackageservice.util.AppConstants;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
@@ -40,7 +38,10 @@ public class TourPackageServiceImpl implements TourPackageService {
         TourPackage entity = TourPackageMapper.toEntity(requestDTO);
         return tourPackageRepository.save(entity)
                 .map(TourPackageMapper::toResponseDTO)
-                .doOnSuccess(saved -> log.info("Tour package created with ID: {}", saved.getId()))
+                .doOnSuccess(saved -> {
+                    assert saved != null;
+                    log.info("Tour package created with ID: {}", saved.getId());
+                })
                 .doOnError(e -> log.error("Error creating tour package: {}", e.getMessage()));
     }
 
@@ -61,7 +62,7 @@ public class TourPackageServiceImpl implements TourPackageService {
     public Mono<TourPackageResponseDTO> getTourById(Long id) {
         log.debug("Fetching tour package by ID: {}", id);
         return tourPackageRepository.findById(id)
-                .filter(TourPackage::getActive)
+                .filter(tp -> tp.getActive() != null && tp.getActive() == 1)
                 .map(TourPackageMapper::toResponseDTO)
                 .switchIfEmpty(Mono.error(new TourNotFoundException(String.format(AppConstants.TOUR_NOT_FOUND_MSG, id))))
                 .doOnError(e -> log.error("Error fetching tour package {}: {}", id, e.getMessage()));
@@ -81,14 +82,17 @@ public class TourPackageServiceImpl implements TourPackageService {
     public Mono<TourPackageResponseDTO> updateTour(Long id, TourPackageRequestDTO requestDTO) {
         log.info("Updating tour package with ID: {}", id);
         return tourPackageRepository.findById(id)
-                .filter(TourPackage::getActive)
+                .filter(tp -> tp.getActive() != null && tp.getActive() == 1)
                 .switchIfEmpty(Mono.error(new TourNotFoundException(String.format(AppConstants.TOUR_NOT_FOUND_MSG, id))))
                 .flatMap(existingEntity -> {
                     TourPackageMapper.updateEntity(existingEntity, requestDTO);
                     return tourPackageRepository.save(existingEntity);
                 })
                 .map(TourPackageMapper::toResponseDTO)
-                .doOnSuccess(updated -> log.info("Tour package updated with ID: {}", updated.getId()))
+                .doOnSuccess(updated -> {
+                    assert updated != null;
+                    log.info("Tour package updated with ID: {}", updated.getId());
+                })
                 .doOnError(e -> log.error("Error updating tour package {}: {}", id, e.getMessage()));
     }
 
@@ -97,10 +101,10 @@ public class TourPackageServiceImpl implements TourPackageService {
     public Mono<Void> deleteTour(Long id) {
         log.info("Soft deleting tour package with ID: {}", id);
         return tourPackageRepository.findById(id)
-                .filter(TourPackage::getActive)
+                .filter(tp -> tp.getActive() != null && tp.getActive() == 1)
                 .switchIfEmpty(Mono.error(new TourNotFoundException(String.format(AppConstants.TOUR_NOT_FOUND_MSG, id))))
                 .flatMap(existingEntity -> {
-                    existingEntity.setActive(false);
+                    existingEntity.setActive(0);
                     existingEntity.setUpdatedAt(LocalDateTime.now());
                     return tourPackageRepository.save(existingEntity);
                 })

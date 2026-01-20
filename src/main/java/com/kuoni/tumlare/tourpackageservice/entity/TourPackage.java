@@ -1,13 +1,10 @@
 package com.kuoni.tumlare.tourpackageservice.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -48,18 +45,16 @@ public class TourPackage {
     @Column("AVAILABLE_SLOTS")
     private Integer availableSlots;
 
-    @CreatedDate
     @Column("CREATED_AT")
     private LocalDateTime createdAt;
 
-    @LastModifiedDate
     @Column("UPDATED_AT")
     private LocalDateTime updatedAt;
 
     @Column("ACTIVE")
-    private Boolean active;
+    private Integer active;
 
-    public TourPackage(Long id, String name, String description, String location, BigDecimal price, Integer durationDays, Integer availableSlots, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean active) {
+    public TourPackage(Long id, String name, String description, String location, BigDecimal price, Integer durationDays, Integer availableSlots, LocalDateTime createdAt, LocalDateTime updatedAt, Integer active) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -90,8 +85,8 @@ public class TourPackage {
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean active) { this.active = active; }
+    public Integer getActive() { return active; }
+    public void setActive(Integer active) { this.active = active; }
 
     public static TourPackageBuilder builder() {
         return new TourPackageBuilder();
@@ -107,7 +102,7 @@ public class TourPackage {
         private Integer availableSlots;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
-        private Boolean active;
+        private Integer active;
 
         public TourPackageBuilder id(Long id) { this.id = id; return this; }
         public TourPackageBuilder name(String name) { this.name = name; return this; }
@@ -118,7 +113,7 @@ public class TourPackage {
         public TourPackageBuilder availableSlots(Integer availableSlots) { this.availableSlots = availableSlots; return this; }
         public TourPackageBuilder createdAt(LocalDateTime createdAt) { this.createdAt = createdAt; return this; }
         public TourPackageBuilder updatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; return this; }
-        public TourPackageBuilder active(Boolean active) { this.active = active; return this; }
+        public TourPackageBuilder active(Integer active) { this.active = active; return this; }
         public TourPackage build() {
             return new TourPackage(id, name, description, location, price, durationDays, availableSlots, createdAt, updatedAt, active);
         }

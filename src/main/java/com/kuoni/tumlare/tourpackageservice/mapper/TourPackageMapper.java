@@ -35,7 +35,7 @@ public final class TourPackageMapper {
                 .price(dto.getPrice())
                 .durationDays(dto.getDurationDays())
                 .availableSlots(dto.getAvailableSlots())
-                .active(true) // Default to active on creation
+                .active(1) // Default to active (1) on creation
                 .createdAt(LocalDateTime.now())
                 .updatedAt(LocalDateTime.now())
                 .build();
@@ -82,7 +82,7 @@ public final class TourPackageMapper {
                 .availableSlots(entity.getAvailableSlots())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
-                .active(entity.getActive())
+                .active(entity.getActive() != null && entity.getActive() == 1)
                 .build();
     }
 }
