@@ -11,8 +11,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +36,7 @@ public class TourPackageController {
         this.tourPackageService = tourPackageService;
     }
 
-@Operation(summary = "Create a new tour package", description = "Adds a new tour package to the system")
+    @Operation(summary = "Create a new tour package", description = "Adds a new tour package to the system")
     @ApiResponse(responseCode = "201", description = "Tour package created successfully",
             content = @Content(schema = @Schema(implementation = TourPackageResponseDTO.class)))
     @ApiResponse(responseCode = "400", description = "Invalid request payload")
@@ -60,7 +58,7 @@ public class TourPackageController {
         return tourPackageService.createTours(requestDTOs);
     }
 
-@Operation(summary = "Get tour package by ID", description = "Fetches a tour package details by its primary key")
+    @Operation(summary = "Get tour package by ID", description = "Fetches a tour package details by its primary key")
     @ApiResponse(responseCode = "200", description = "Tour package found")
     @ApiResponse(responseCode = "404", description = "Tour package not found")
     @GetMapping("/{id}")
@@ -70,14 +68,14 @@ public class TourPackageController {
         return tourPackageService.getTourById(id);
     }
 
-@Operation(summary = "Get all tour packages", description = "Retrieves a stream of all active tour packages")
+    @Operation(summary = "Get all tour packages", description = "Retrieves a stream of all active tour packages")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Flux<TourPackageResponseDTO> getAllTours() {
         log.info(AppConstants.LOG_REQUEST_START, "GET", AppConstants.API_BASE_PATH);
         return tourPackageService.getAllTours();
     }
 
-@Operation(summary = "Update an existing tour package", description = "Updates tour package details by its ID")
+    @Operation(summary = "Update an existing tour package", description = "Updates tour package details by its ID")
     @ApiResponse(responseCode = "200", description = "Tour package updated successfully")
     @ApiResponse(responseCode = "404", description = "Tour package not found")
     @PutMapping("/{id}")
@@ -88,7 +86,7 @@ public class TourPackageController {
         return tourPackageService.updateTour(id, requestDTO);
     }
 
-@Operation(summary = "Delete a tour package", description = "Performs a soft delete by setting the 'active' flag to false")
+    @Operation(summary = "Delete a tour package", description = "Performs a soft delete by setting the 'active' flag to false")
     @ApiResponse(responseCode = "204", description = "Tour package deleted successfully")
     @ApiResponse(responseCode = "404", description = "Tour package not found")
     @DeleteMapping("/{id}")

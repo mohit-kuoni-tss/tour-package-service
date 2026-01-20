@@ -16,41 +16,20 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
-//@Schema(description = "Response DTO representing a Tour Package")
 public class TourPackageResponseDTO {
 
-//    @Schema(description = "Unique identifier of the tour package")
     private Long id;
-
-//    @Schema(description = "Name of the tour package")
     private String name;
-
-//    @Schema(description = "Detailed description of the tour")
     private String description;
-
-//    @Schema(description = "Primary location of the tour")
     private String location;
-
-//    @Schema(description = "Price of the tour package")
     private BigDecimal price;
-
-//    @Schema(description = "Duration of the tour in days")
     private Integer durationDays;
-
-//    @Schema(description = "Number of slots available for booking")
     private Integer availableSlots;
-
-//    @Schema(description = "Timestamp when the package was created")
     private LocalDateTime createdAt;
-
-//    @Schema(description = "Timestamp when the package was last updated")
     private LocalDateTime updatedAt;
-
-//    @Schema(description = "Flag indicating if the tour package is active")
     private Boolean active;
 
-    public TourPackageResponseDTO() {
-    }
+    public TourPackageResponseDTO() {}
 
     public TourPackageResponseDTO(Long id, String name, String description, String location, BigDecimal price, Integer durationDays, Integer availableSlots, LocalDateTime createdAt, LocalDateTime updatedAt, Boolean active) {
         this.id = id;

@@ -21,37 +21,29 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Builder
-//@Schema(description = "Request DTO for creating/updating a Tour Package")
 public class TourPackageRequestDTO {
 
-//    @Schema(description = "Name of the tour package", example = "Grand Europe Tour")
     @NotBlank(message = "Tour name is mandatory")
     private String name;
 
-//    @Schema(description = "Detailed description of the tour", example = "14 days across Europe")
     private String description;
 
-//    @Schema(description = "Primary location of the tour", example = "Europe")
     @NotBlank(message = "Location is mandatory")
     private String location;
 
-//    @Schema(description = "Price of the tour package", example = "2500.00")
     @NotNull(message = "Price is mandatory")
     @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than zero")
     private BigDecimal price;
 
-//    @Schema(description = "Duration of the tour in days", example = "14")
     @NotNull(message = "Duration is mandatory")
     @Min(value = 1, message = "Duration must be at least 1 day")
     private Integer durationDays;
 
-//    @Schema(description = "Number of slots available for booking", example = "20")
     @NotNull(message = "Available slots are mandatory")
     @Min(value = 0, message = "Available slots cannot be negative")
     private Integer availableSlots;
 
-    public TourPackageRequestDTO() {
-    }
+    public TourPackageRequestDTO() {}
 
     public TourPackageRequestDTO(String name, String description, String location, BigDecimal price, Integer durationDays, Integer availableSlots) {
         this.name = name;

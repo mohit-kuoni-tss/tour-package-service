@@ -2,10 +2,12 @@ package com.kuoni.tumlare.tourpackageservice;
 
 import com.kuoni.tumlare.tourpackageservice.dto.TourPackageRequestDTO;
 import com.kuoni.tumlare.tourpackageservice.dto.TourPackageResponseDTO;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
@@ -20,11 +22,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BatchCreationTest {
 
     @Autowired
-    private org.springframework.context.ApplicationContext context;
+    private ApplicationContext context;
 
     private WebTestClient webTestClient;
 
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
         this.webTestClient = WebTestClient.bindToApplicationContext(context).build();
     }
