@@ -49,6 +49,17 @@ public class TourPackageController {
         return tourPackageService.createTour(requestDTO);
     }
 
+    @Operation(summary = "Create multiple tour packages in a batch", description = "Adds multiple new tour packages to the system")
+    @ApiResponse(responseCode = "201", description = "Tour packages created successfully",
+            content = @Content(schema = @Schema(implementation = TourPackageResponseDTO.class)))
+    @ApiResponse(responseCode = "400", description = "Invalid request payload")
+    @PostMapping(value = "/batch", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public Flux<TourPackageResponseDTO> createTours(@RequestBody Flux<TourPackageRequestDTO> requestDTOs) {
+        log.info(AppConstants.LOG_REQUEST_START, "POST", AppConstants.API_BASE_PATH + "/batch");
+        return tourPackageService.createTours(requestDTOs);
+    }
+
 @Operation(summary = "Get tour package by ID", description = "Fetches a tour package details by its primary key")
     @ApiResponse(responseCode = "200", description = "Tour package found")
     @ApiResponse(responseCode = "404", description = "Tour package not found")

@@ -45,6 +45,18 @@ public class TourPackageServiceImpl implements TourPackageService {
     }
 
     @Override
+    @Transactional
+    public Flux<TourPackageResponseDTO> createTours(Flux<TourPackageRequestDTO> requestDTOs) {
+        return requestDTOs
+                .map(TourPackageMapper::toEntity)
+                .collectList()
+                .flatMapMany(tourPackageRepository::saveAll)
+                .map(TourPackageMapper::toResponseDTO)
+                .doOnComplete(() -> log.info("Batch creation of tour packages completed"))
+                .doOnError(e -> log.error("Error during batch creation of tour packages: {}", e.getMessage()));
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Mono<TourPackageResponseDTO> getTourById(Long id) {
         log.debug("Fetching tour package by ID: {}", id);

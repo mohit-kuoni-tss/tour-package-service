@@ -64,6 +64,29 @@ The API documentation provides detailed information about endpoints, request/res
 - **Produces**: `application/json`
 - **Response**: `200 OK` (Flux of Tour Packages)
 
+### Batch Create Tour Packages
+- **URL**: `POST /api/tours/batch`
+- **Body**: (Array of Create objects)
+  ```json
+  [
+    {
+      "name": "Tour 1",
+      "location": "Loc 1",
+      "price": 100.0,
+      "durationDays": 5,
+      "availableSlots": 10
+    },
+    {
+      "name": "Tour 2",
+      "location": "Loc 2",
+      "price": 200.0,
+      "durationDays": 7,
+      "availableSlots": 15
+    }
+  ]
+  ```
+- **Response**: `201 Created` (Flux of created packages)
+
 ### Update Tour
 - **URL**: `PUT /api/tours/{id}`
 - **Body**: (Similar to Create)
@@ -87,6 +110,18 @@ The API documentation provides detailed information about endpoints, request/res
     ```bash
     mvn spring-boot:run
     ```
+
+### Batch Data Generation
+A specialized integration test `BatchCreationTest.java` is available to seed the database with 1000 records. This test is **disabled by default** using `@Disabled` to prevent accidental data bloat during standard builds.
+
+To run the batch generation manually:
+1. Open `src/test/java/com/kuoni/tumlare/tourpackageservice/BatchCreationTest.java`.
+2. Comment out or remove the `@Disabled` annotation.
+3. Run the test via your IDE or use Maven:
+   ```bash
+   mvn test -Dtest=BatchCreationTest
+   ```
+Note: Remember to revert the `@Disabled` annotation after use to keep standard builds clean.
 
 ## Oracle DB Setup
 Ensure the following table exists in your Oracle database:

@@ -22,6 +22,14 @@ public interface TourPackageService {
     Mono<TourPackageResponseDTO> createTour(TourPackageRequestDTO requestDTO);
 
     /**
+     * Creates multiple tour packages in a batch.
+     *
+     * @param requestDTOs the flux of tour package details
+     * @return a flux of created tour packages
+     */
+    Flux<TourPackageResponseDTO> createTours(Flux<TourPackageRequestDTO> requestDTOs);
+
+    /**
      * Retrieves a tour package by its ID.
      *
      * @param id the tour package ID
