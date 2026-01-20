@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: tour-package-service
+  
+  r2dbc:
+    url: r2dbc:oracle://10.149.20.35:1521/MYBUS
+    username: mybus_jpmrn_test
+    password: mybus_jpmrn_test
+    pool:
+      initial-size: 5
+      max-size: 20
+      max-idle-time: 30m
+      validation-query: SELECT 1 FROM DUAL
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    use-root-path: true
+
+logging:
+  level:
+    com.kuoni.tumlare.tourpackageservice: DEBUG
+    org.springframework.data.r2dbc: DEBUG
